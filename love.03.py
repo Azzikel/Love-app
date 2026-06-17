@@ -732,7 +732,7 @@ My greatest love, my endless call — my love, Caroline.`
         document.querySelectorAll('.letter-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 if (btn.disabled) return;
-                const         const text = getRandom(LETTERS_DB[btn.dataset.type]);
+             const text = getRandom(LETTERS_DB[btn.dataset.type]);
         const display = document.getElementById('letterDisplay');   
         // Clear any previous typing loops to prevent text overlapping
         if (window.letterTypeTimer) clearInterval(window.letterTypeTimer);
