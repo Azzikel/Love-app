@@ -837,6 +837,15 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="collapsed"
 )
+# First, hide the Streamlit headers and footers (Fork button)
+hide_toolbar_css = """
+    <style>
+    header {visibility: hidden !important;}
+    footer {visibility: hidden !important;}
+    #MainMenu {visibility: hidden !important;}
+    </style>
+"""
+st.markdown(hide_toolbar_css, unsafe_allow_html=True)
 
-# Render the massive HTML content safely within Streamlit
-st.components.v1.html(html_content, height=2000, scrolling=True)
+# Next, render your actual website content on the screen
+components.html(html_content, height=2000, scrolling=True)
