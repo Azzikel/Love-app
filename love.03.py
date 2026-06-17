@@ -829,9 +829,14 @@ My greatest love, my endless call — my love, Caroline.`
 </html>
 """
 
-if __name__ == "__main__":
-    file_path = "our_love_story.html"
-    with open(file_path, 'w', encoding='utf-8') as file:
-        file.write(html_content)
-    webbrowser.open('file://' + os.path.abspath(file_path))
-    print(f"✨ Love story opened at: {file_path}")
+import streamlit as st
+import streamlit.components.v1 as components
+
+st.set_page_config(
+    page_title="Our Relationship Space",
+    layout="wide",
+    initial_sidebar_state="collapsed"
+)
+
+# Render the massive HTML content safely within Streamlit
+st.components.v1.html(html_content, height=2000, scrolling=True)
