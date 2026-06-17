@@ -838,14 +838,23 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 # First, hide the Streamlit headers and footers (Fork button)
+# Strip all Streamlit structural borders, padding, headers, and footers for a true full-screen layout
 hide_toolbar_css = """
     <style>
-    header {visibility: hidden !important;}
-    footer {visibility: hidden !important;}
+    /* Hide the top header bar and bottom footer elements */
+    header {visibility: hidden !important; display: none !important;}
+    footer {visibility: hidden !important; display: none !important;}
     #MainMenu {visibility: hidden !important;}
+    
+    /* Remove default Streamlit page margins and padding containers */
+    .stApp {max-width: 100vw !important; padding: 0px !important;}
+    .block-container {padding: 0px !important; max-width: 100vw !important; margin: 0px !important;}
+    iframe {border: none !important; width: 100vw !important;}
+    
+    /* Prevent accidental double horizontal scrollbars */
+    html, body {margin: 0px !important; padding: 0px !important; overflow-x: hidden !important;}
     </style>
 """
 st.markdown(hide_toolbar_css, unsafe_allow_html=True)
-
 # Next, render your actual website content on the screen
 components.html(html_content, height=2000, scrolling=True)
