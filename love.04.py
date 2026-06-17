@@ -1,6 +1,5 @@
 import webbrowser
 import os
-
 html_content = """
 <!DOCTYPE html>
 <html lang="en">
@@ -177,13 +176,12 @@ html_content = """
         .theme-simple { background: #FFF8F0; color: #333; }
     </style>
 </head>
-<body class="font-sans bg-vintage min-h-screen relative overflow-x-hidden theme-elegant">
+<body class="font-sans min-h-screen relative overflow-x-hidden theme-elegant">
     <!-- Background Animation -->
     <div id="bg" class="fixed inset-0 -z-10 pointer-events-none"></div>
     <div id="heartsContainer" class="fixed inset-0 -z-5 pointer-events-none"></div>
-
     <!-- Access Mode with Password -->
-    <div class="fixed top-4 right-4 z-50 bg-white/80 backdrop-blur-sm p-2 rounded-lg shadow-soft hover:shadow-glow">
+  <div class="fixed top-4 right-4 z-50 glass-card p-2 rounded-lg hover:shadow-glow">
         <select id="mode" class="border-none bg-transparent font-medium">
             <option value="viewer">Viewer Mode</option>
             <option value="owner">Owner Mode</option>
@@ -193,21 +191,20 @@ html_content = """
             <button id="unlockBtn" class="ml-1 px-2 py-1 bg-secondary text-white rounded hover:bg-secondary/90 hover-lift">Go</button>
         </div>
     </div>
-
     <div class="container mx-auto px-4 py-8 max-w-6xl">
         <!-- MVP: Dashboard -->
         <section class="text-center fade-in mb-20">
             <h1 class="font-elegant text-[clamp(2.5rem,6vw,4rem)] font-bold text-primary mb-6 glow-text">Our Love Story</h1>
-            <div class="bg-white/70 backdrop-blur-sm rounded-3xl shadow-soft p-10 mb-10 hover:shadow-glow transition-all">
+            <div class="glass-card rounded-3xl shadow-soft p-10 mb-10 hover:shadow-glow transition-all">
                 <h2 class="text-gray-700 text-xl mb-3">Days Together Since September 24, 2024</h2>
                 <div id="daysCounter" class="text-6xl font-elegant font-bold text-secondary mt-2 animate-pulse-slow"></div>
             </div>
             <div class="grid md:grid-cols-2 gap-8 mb-10">
-                <div class="bg-white/70 backdrop-blur-sm p-8 rounded-2xl shadow-soft hover:shadow-glow">
+           <div class="glass-card p-8 rounded-2xl hover:shadow-glow">
                     <h3 class="text-gray-700 text-lg mb-2">Next Monthsary (Every 24th)</h3>
                     <div id="monthsaryCountdown" class="text-3xl font-semibold text-primary"></div>
                 </div>
-                <div class="bg-white/70 backdrop-blur-sm p-8 rounded-2xl shadow-soft hover:shadow-glow">
+                <div class="glass-card p-8 rounded-2xl shadow-soft hover:shadow-glow">
                     <h3 class="text-gray-700 text-lg mb-2">Next Anniversary (Sept 24)</h3>
                     <div id="anniversaryCountdown" class="text-3xl font-semibold text-crimson"></div>
                 </div>
@@ -282,7 +279,7 @@ html_content = """
         <!-- Daily Connection -->
         <section class="mb-20 fade-in">
             <h2 class="font-elegant text-3xl text-secondary text-center mb-6">Daily Connection</h2>
-            <div class="bg-white/70 backdrop-blur-sm rounded-2xl p-8 shadow-soft">
+            <div class="glass-card rounded-2xl p-8 shadow-soft">
                 <p class="mb-4 text-lg">How are you feeling about us today, my love, Caroline?</p>
                 <textarea id="feelingInput" class="w-full p-4 border rounded-xl mb-5 focus:ring-2 focus:ring-secondary/50 min-h-[100px]" placeholder="Share your thoughts, feelings, or sweet memories..."></textarea>
                 <p class="mb-3 font-medium">Mood:</p>
