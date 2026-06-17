@@ -732,13 +732,57 @@ My greatest love, my endless call — my love, Caroline.`
         document.querySelectorAll('.letter-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 if (btn.disabled) return;
-             const text = getRandom(LETTERS_DB[btn.dataset.type]);
-        const display = document.getElementById('letterDisplay');   
-        // Clear any previous typing loops to prevent text overlapping
+                    // 1. Letters Database Mix & Match Arrays
+        const structures = {
+            openings: [
+                "My favorite person, ", "To the one who holds my heart, ", 
+                "Every single day I wake up thinking of you, ", "Looking back at our journey since September 24, 2024, ",
+                "I was just sitting here remembering your beautiful smile, ", "In this crazy world, "
+            ],
+            middles: {
+                proud: [
+                    "seeing how hard you work and how much you achieve makes me admire you more than words can say. ",
+                    "you tackle every single challenge with so much grace and strength. I'm completely in awe of you. ",
+                    "you inspire me to be a better person just by being exactly who you are. "
+                ],
+                sad: [
+                    "I wish I could hold you tight right now and wipe away whatever is heavy on your mind. ",
+                    "remember that you don't have to be strong all the time, and I am always right here in your corner. ",
+                    "this feeling is only temporary, and we will get through it together, hand in hand. "
+                ],
+                love: [
+                    "knowing you love me makes me feel completely invincible and secure. ",
+                    "every little quiet moment we share becomes my absolute new favorite memory. ",
+                    "you have shown me what real, deep, unconditional love actually feels like. "
+                ]
+            },
+            details: [
+                "I love how we can talk about absolutely anything for hours without getting bored. ", 
+                "Even when things get busy, your hand is the only one I ever want to hold. ",
+                "Just hearing your voice can instantly turn my entire day completely around. ", 
+                "Look how far we came together, overcoming every single hurdle in our path. ",
+                "Your laughter is literally my absolute favorite sound in the whole world. "
+            ],
+            closings: [
+                "I promise to always stay true and love you deeper tomorrow. Always yours.",
+                "Thank you for choosing me. I love you more than words can express.",
+                "I am so incredibly proud of us. Forever and always, my love.",
+                "You have my whole heart, for the rest of my life. Distance means absolutely nothing."
+            ]
+        };
+        const moodKey = ['proud', 'sad', 'love'].includes(btn.dataset.type) ? btn.dataset.type : 'love';
+        const randomItem = (arr) => arr[Math.floor(Math.random() * arr.length)];
+        
+        // 2. Mix up a completely unique letter string
+        const text = randomItem(structures.openings) + randomItem(structures.middles[moodKey]) + randomItem(structures.details) + randomItem(structures.closings);
+
+        const display = document.getElementById('letterDisplay');
         if (window.letterTypeTimer) clearInterval(window.letterTypeTimer);
+        
         display.innerHTML = `<p id="activeLetterText" class="typing font-elegant text-lg text-gray-700 leading-relaxed"></p>`;
         const targetElement = document.getElementById('activeLetterText');
-        createHeartBurst();   
+        createHeartBurst();
+        
         let index = 0;
         window.letterTypeTimer = setInterval(() => {
             if (index < text.length) {
@@ -747,22 +791,46 @@ My greatest love, my endless call — my love, Caroline.`
             } else {
                 clearInterval(window.letterTypeTimer);
             }
-        }, 35); // 35ms per character typing speed
+        }, 22);
 ;
                 logs.letters.unshift({ time: nowTime(), type: btn.dataset.type, content: text.substring(0,60)+'...', fullContent: text });
                 localStorage.setItem("log_letters", JSON.stringify(logs.letters));
                 updateOwnerPanel();
             });
         });
-        document.getElementById('getPoem').addEventListener('click', () => {
-            const poem = getRandom(POEMS_DB);
-            document.getElementById('poemDisplay').textContent = poem;
-            createHeartBurst();
-            logs.poems.unshift({ time: nowTime(), fullContent: poem });
-            localStorage.setItem("log_poems", JSON.stringify(logs.poems));
-            updateOwnerPanel();
-        });
+     document.getElementById('getPoem').addEventListener('click', () => {
+    const poemStructures = {
+        lines1: ["The stars align when you are near,", "Since September when our days began,", "A cozy room, a quiet night,", "Your laughter echoes in my mind,"],
+        lines2: ["A love that casts away all fear,", "Two souls following a beautiful plan,", "With you, the world is pure and bright,", "The rarest treasure I could find,"],
+        lines3: ["In your bright eyes, my world is clear,", "Through every storm we've safely ran,", "No distance changes how I feel,", "Hand in hand, we walk our path,"],
+        lines4: ["You are the one I hold so dear.", "By your beautiful spirit, I am enchanted.", "This love we share is deep and real.", "In a world made perfect by your laugh."]
+    };
+    
+    const randomItem = (arr) => arr[Math.floor(Math.random() * arr.length)];
+    const poem = `${randomItem(poemStructures.lines1)}\n${randomItem(poemStructures.lines2)}\n${randomItem(poemStructures.lines3)}\n${randomItem(poemStructures.lines4)}`;
+    
+    const poemDisplay = document.getElementById('poemDisplay');
+    if (window.poemTypeTimer) clearInterval(window.poemTypeTimer);
+    
+    poemDisplay.innerHTML = `<p id="activePoemText" class="typing font-elegant text-xl text-primary leading-loose whitespace-pre-line text-center animate-pulse-slow"></p>`;
+    const targetPoem = document.getElementById('activePoemText');
+    createHeartBurst();
+    
+    let pIndex = 0;
+    window.poemTypeTimer = setInterval(() => {
+        if (pIndex < poem.length) {
+            targetPoem.innerHTML += poem.charAt(pIndex);
+            pIndex++;
+        } else {
+            clearInterval(window.poemTypeTimer);
+        }
+    }, 30);
 
+    // This section makes sure it still saves to your history panel!
+    logs.poems.unshift({ time: nowTime(), fullContent: poem });
+    localStorage.setItem("log_poems", JSON.stringify(logs.poems));
+    updateOwnerPanel();
+});
         document.getElementById('surpriseBtn').addEventListener('click', () => {
             const surprise = getRandom(COMPLIMENTS_DB);
             document.getElementById('surpriseText').textContent = surprise;
