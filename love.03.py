@@ -729,20 +729,31 @@ My greatest love, my endless call — my love, Caroline.`
         document.getElementById("clearAllReflections").addEventListener("click", () => {
             if (confirm("Delete ALL feelings history?")) { logs.reflections = []; localStorage.setItem("log_reflections", JSON.stringify(logs.reflections)); updateOwnerPanel(); }
         });
-
         document.querySelectorAll('.letter-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 if (btn.disabled) return;
-                const text = getRandom(LETTERS_DB[btn.dataset.type]);
-                const display = document.getElementById('letterDisplay');
-                display.innerHTML = `<p class="typing">${text}</p>`;
-                createHeartBurst();
+                const         const text = getRandom(LETTERS_DB[btn.dataset.type]);
+        const display = document.getElementById('letterDisplay');   
+        // Clear any previous typing loops to prevent text overlapping
+        if (window.letterTypeTimer) clearInterval(window.letterTypeTimer);
+        display.innerHTML = `<p id="activeLetterText" class="typing font-elegant text-lg text-gray-700 leading-relaxed"></p>`;
+        const targetElement = document.getElementById('activeLetterText');
+        createHeartBurst();   
+        let index = 0;
+        window.letterTypeTimer = setInterval(() => {
+            if (index < text.length) {
+                targetElement.innerHTML += text.charAt(index);
+                index++;
+            } else {
+                clearInterval(window.letterTypeTimer);
+            }
+        }, 35); // 35ms per character typing speed
+;
                 logs.letters.unshift({ time: nowTime(), type: btn.dataset.type, content: text.substring(0,60)+'...', fullContent: text });
                 localStorage.setItem("log_letters", JSON.stringify(logs.letters));
                 updateOwnerPanel();
             });
         });
-
         document.getElementById('getPoem').addEventListener('click', () => {
             const poem = getRandom(POEMS_DB);
             document.getElementById('poemDisplay').textContent = poem;
